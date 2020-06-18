@@ -1,15 +1,39 @@
+
 #include <Arduino.h>
-#include <LiquidCristal.h>
+#include <LiquidCrystal.h>
 
-LiquidCeistal lcd(12, 11, 5, 4, 3, 2);
+LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
+char tablica[]="Paweł";
+int tabLen = 0;
 
-void setup() { 
+void lcdCLear(void);
+
+void setup() {
     lcd.begin(16, 2);
-    lcd.print("Słapczyński") ;
+    lcd.print("Paweł Słpaczyński");
+    tabLen = sizeof(tablica);
+    delay(2000);
 }
 
-void loop() {  
+void loop() { 
+    for(int i=0; i<(18 - tabLen); i++){ 
+        lcdClear();
+        lcd.setCursor(i, 0);
+        lcd.print(tablica);
+        delay(1000);
+    }
+
+    for(int i=(17 - tabLen); i>=0; i--){
+        lcdClear();
+        lcd.setCursor(i, 1);
+        lcd.print(tablica);
+        delay(1000);
+    }
+}
+
+void lcdClear(void){
+    lcd.setCursor(0, 0);
+    lcd.print("                ");
     lcd.setCursor(0, 1);
-    lcd.pront(millis() / 1000);
-    dealy(500);
+    lcd.print("                ");
 }
